@@ -1,0 +1,101 @@
+[
+  {
+    "lexicalUnit": "vɛl.lɐm",
+    "audioPath": "flood.wav",
+    "picturePath": "Flood.jpg",
+    "grammaticalInfo": "Noun",
+    "enWord": "Flood",
+    "irulaWord": "வெள்ளம்",
+    "taWord": "வெள்ளம்",
+    "enMeaning": "The rising of a body of water and its overflowing onto normally dry land.",
+    "taMeaning": "கடும் மழை, கரைபுரண்டு ஓடும் ஆறு முதலியவற்றால் ஏற்படும்) நீர்ப்பெருக்கு; பெருமளவில் விரைந்துசெல்லும் தண்ணீர்."
+  },
+  {
+    "lexicalUnit": "sɐ.l̪ɪ",
+    "audioPath": "cold.wav",
+    "picturePath": "Cold.jpg",
+    "grammaticalInfo": "Noun",
+    "enWord": "Cold",
+    "irulaWord": "சளி",
+    "taWord": "சளி",
+    "enMeaning": "A mild viral infection involving the nose and respiratory passages.",
+    "taMeaning": "ஜலதோஷம்."
+  },
+  {
+    "lexicalUnit": "ðiː",
+    "audioPath": "fire.wav",
+    "picturePath": "Fire.jpg",
+    "grammaticalInfo": "Noun",
+    "enWord": "Fire",
+    "irulaWord": "தீ",
+    "taWord": "தீ",
+    "enMeaning": "The process of combustion of inflammable materials producing heat and light and (often) smoke.",
+    "taMeaning": "வெப்பம் மற்றும் ஒளி, மற்றும் (பெரும்பாலும்) புகையை உருவாக்கும் எரியக்கூடிய பொருட்களின் எரிப்பு செயல்முறை."
+  },
+  {
+    "lexicalUnit": "va.ˈraː kaː.ɖu",
+    "audioPath": "desert.wav",
+    "picturePath": "Desert.jpg",
+    "grammaticalInfo": "Noun",
+    "enWord": "Desert",
+    "irulaWord": "வரக்காடு",
+    "taWord": "பாலைவனம்",
+    "enMeaning": "A desert is a very dry area of land where few plants and animals can live.",
+    "taMeaning": "கடும் வெப்பம் நிறைந்த, மிகமிகக் குறைந்த அளவே நீரும் தாவரங்களும் காணப்படும் பரந்த மணல் வெளி."
+  },
+  {
+    "lexicalUnit": "ɛ.ɻɛ",
+    "audioPath": "cave.wav",
+    "picturePath": "Cave.jpg",
+    "grammaticalInfo": "Noun",
+    "enWord": "Cave",
+    "irulaWord": "ஏறே",
+    "taWord": "குகை",
+    "enMeaning": "A geological formation consisting of an underground enclosure with access from the surface of the ground or from the sea.",
+    "taMeaning": "மலையில் இயற்கையாக அமைந்துள்ள பொந்து போன்ற வெற்றிடம் அல்லது நீண்ட வழி."
+  },
+  {
+    "lexicalUnit": "buː.ɖiː",
+    "audioPath": "ash.wav",
+    "picturePath": "Ash.jpg",
+    "grammaticalInfo": "Noun",
+    "enWord": "Ash",
+    "irulaWord": "பூட்டி",
+    "taWord": "சாம்பல்",
+    "enMeaning": "The powdery residue left after the burning of a substance.",
+    "taMeaning": "(மரம், கரி முதலியவை) எரிந்து கிடைக்கும் தூள்."
+  },
+  {
+    "lexicalUnit": "ðiː kɐˈɳ.ɖa",
+    "audioPath": "ember.wav",
+    "picturePath": "Ember.jpg",
+    "grammaticalInfo": "Noun",
+    "enWord": "Ember",
+    "irulaWord": "திகண்ட",
+    "taWord": "எரிக்கரி",
+    "enMeaning": "A hot fragment of wood or coal that is left from a fire and is glowing or smoldering.",
+    "taMeaning": "நெருப்பிலிருந்து எஞ்சியிருக்கும் மரம் அல்லது நிலக்கரியின் சூடான துண்டு."
+  },
+  {
+    "lexicalUnit": "kəð.ðɐleː",
+    "audioPath": "darkness.wav",
+    "picturePath": "Darkness.jpg",
+    "grammaticalInfo": "Noun",
+    "enWord": "Darkness",
+    "irulaWord": "கடடலே",
+    "taWord": "இருள்",
+    "enMeaning": "Absence of light or illumination.",
+    "taMeaning": "(வெளிச்சம் குறைந்து) இருட்டு பரவுதல்."
+  },
+  {
+    "lexicalUnit": "buː.mi əˈðɾ̪.ʧi aˈku.θu",
+    "audioPath": "earthquake.wav",
+    "picturePath": "Earthquake.jpg",
+    "grammaticalInfo": "Noun",
+    "enWord": "Earthquake",
+    "irulaWord": "பூமிஅதிர்ச்செயகுடு",
+    "taWord": "நிலநடுக்கம்",
+    "enMeaning": "Shaking and vibration at the surface of the earth.",
+    "taMeaning": "(கண்டத்தட்டுகள் மோதிக்கொள்வதால்) பூமியின் மேல்பரப்பு அடையும் அதிர்வு."
+  }
+]

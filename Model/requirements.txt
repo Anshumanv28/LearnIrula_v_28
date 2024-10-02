@@ -1,0 +1,9 @@
+pandas
+requests
+# librosa
+pydub
+transformers
+datasets
+torch
+torchaudio
+sounddevice

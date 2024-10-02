@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "LearnIrula",
+    "slug": "learnirulaapp",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#284387",
+      "duration": 5000
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "versionCode": 7,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#284387"
+      },
+      "package": "com.kevinjinu.LearnIrula"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b89c1e35-b390-47e0-931e-919bcb9200a0"
+      }
+    },
+    "owner": "hemanth_gopisetty_2002"
+  }
+}
