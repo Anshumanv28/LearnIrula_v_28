@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   ScrollView,
   StyleSheet,
@@ -9,7 +10,7 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import { Audio } from 'expo-av';
+import { Audio } from "expo-av";
 import HintSection from "./HintSection";
 import Grid from "./Grid";
 import crosswords from "./CrosswordData";
@@ -22,7 +23,8 @@ const Crossword = ({ route, navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const selectedCrossword = crosswords[currentIndex];
   const { hints, audioLinks } = selectedCrossword;
-  const { inputs, handleChange, handleSubmit, isCompleted } = useCrossword(selectedCrossword);
+  const { inputs, handleChange, handleSubmit, isCompleted } =
+    useCrossword(selectedCrossword);
   const [sound, setSound] = useState();
 
   useEffect(() => {
@@ -36,7 +38,10 @@ const Crossword = ({ route, navigation }) => {
   const onSubmit = () => {
     const isCorrect = handleSubmit();
     if (isCorrect) {
-      Alert.alert("Success!", "All answers are correct! You can now play the audio for each word.");
+      Alert.alert(
+        "Success!",
+        "All answers are correct! You can now play the audio for each word."
+      );
     } else {
       Alert.alert("Try Again", "Some answers are incorrect.");
     }
@@ -46,7 +51,10 @@ const Crossword = ({ route, navigation }) => {
     if (currentIndex < crosswords.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      Alert.alert("End of Crosswords", "You have reached the end of the crosswords.");
+      Alert.alert(
+        "End of Crosswords",
+        "You have reached the end of the crosswords."
+      );
     }
   };
 
@@ -54,7 +62,10 @@ const Crossword = ({ route, navigation }) => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     } else {
-      Alert.alert("Start of Crosswords", "You are at the beginning of the crosswords.");
+      Alert.alert(
+        "Start of Crosswords",
+        "You are at the beginning of the crosswords."
+      );
     }
   };
 
@@ -64,44 +75,37 @@ const Crossword = ({ route, navigation }) => {
       setSound(sound);
       await sound.playAsync();
     } catch (error) {
-      console.error('Error playing audio:', error);
-      Alert.alert('Error', 'Failed to play audio. Please try again.');
+      console.error("Error playing audio:", error);
+      Alert.alert("Error", "Failed to play audio. Please try again.");
     }
   };
 
   const AudioButton = ({ word, direction }) => {
     const getAudioKey = (word, direction) => {
-      // Extract the number (including decimal) at the beginning of the hint
       const match = word.match(/^(\d+(\.\d+)?)/);
       if (match) {
-        // If it's a decimal number, include parentheses
         const key = match[2] ? `(${match[1]})` : match[1];
         return `${direction}-${key}`;
       }
-      // Fallback to the first word if no number is found
-      return `${direction}-${word.split(' ')[0]}`;
+      return `${direction}-${word.split(" ")[0]}`;
     };
 
     const audioKey = getAudioKey(word, direction);
     const audioUrl = audioLinks[audioKey];
 
-    console.log('Audio Key:', audioKey);
-    console.log('Audio URL:', audioUrl);
-
     return (
       <TouchableOpacity
         style={styles.audioButton}
         onPress={() => audioUrl && playAudio(audioUrl)}
-        disabled={!isCompleted || !audioUrl}
+        // disabled={!isCompleted || !audioUrl}
       >
-        <Text style={styles.audioButtonText}>🔊</Text>
+        <Text style={styles.audioButtonText}>🎧 Play Audio</Text>
       </TouchableOpacity>
     );
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <HintSection hints={hints} AudioButton={AudioButton} isCompleted={isCompleted} />
       <View style={styles.gridContainer}>
         <Grid
           grid={selectedCrossword.grid}
@@ -110,10 +114,25 @@ const Crossword = ({ route, navigation }) => {
           correctAnswers={selectedCrossword.correctAnswers}
         />
       </View>
+
+      <HintSection
+        hints={hints}
+        AudioButton={AudioButton}
+        isCompleted={isCompleted}
+      />
+
       <View style={styles.buttonContainer}>
-        <Button title="Previous" onPress={handlePrevious} />
-        <Button title="Submit" onPress={onSubmit} />
-        <Button title="Next" onPress={handleNext} />
+        <TouchableOpacity style={styles.customButton} onPress={handlePrevious}>
+          <Ionicons name="arrow-back" size={20} color="white" />
+          <Text style={styles.buttonText}>Previous</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.customButton} onPress={onSubmit}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.customButton} onPress={handleNext}>
+          <Text style={styles.buttonText}>Next</Text>
+          <Ionicons name="arrow-forward" size={20} color="white" />
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -138,14 +157,38 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   audioButton: {
-    backgroundColor: '#4CAF50',
-    borderRadius: 12,
-    padding: 6,
+    backgroundColor: "#007AFF",
+    borderRadius: 25,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
     marginLeft: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
   },
   audioButtonText: {
-    color: 'white',
-    fontSize: 16,
+    color: "white",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  customButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+    backgroundColor: "#007AFF",
+    borderRadius: 25,
+    paddingVertical: 10,
+    marginHorizontal: 5,
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
   },
 });
 

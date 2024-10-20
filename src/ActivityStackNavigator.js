@@ -7,6 +7,7 @@ import Quiz from "./Quiz";
 import SCLearn from "./SCLearn";
 import SpinWheel from "./SpinWheel";
 import Crossword from "./screens/Crossword/Crossword";
+// import TestCrosswordPuzzle from "./screens/Crossword/testCrosswordGen";
 
 const Stack = createStackNavigator();
 
@@ -22,20 +23,8 @@ const ActivityStackNavigator = () => {
       <Stack.Screen name="Quiz" component={Quiz} />
       <Stack.Screen name="SCLearn" component={SCLearn} />
       <Stack.Screen name="SpinWheel" component={SpinWheel} />
-      {/* <Stack.Screen
-        name="Crossword"
-        component={Crossword}
-        initialParams={{
-          grid: [
-            ["A", "L", "", "", ""],
-            ["", "B", "", "", ""],
-            ["", "", "C", "", ""],
-            ["", "", "", "D", ""],
-            ["", "", "", "", "E"],
-          ],
-        }}
-      /> */}
       <Stack.Screen name="Crossword" component={Crossword} />
+      {/* <Stack.Screen name="Crossword" component={TestCrosswordPuzzle} /> */}
     </Stack.Navigator>
   );
 };
