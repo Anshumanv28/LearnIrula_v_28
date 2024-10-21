@@ -97,7 +97,7 @@ const Crossword = ({ route, navigation }) => {
       <TouchableOpacity
         style={styles.audioButton}
         onPress={() => audioUrl && playAudio(audioUrl)}
-        // disabled={!isCompleted || !audioUrl}
+        disabled={!isCompleted || !audioUrl}
       >
         <Text style={styles.audioButtonText}>🎧 Play Audio</Text>
       </TouchableOpacity>

@@ -3,7 +3,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ActivityScreen from "./ActivityScreen";
 import SpeechCheck from "./Speech";
-import Quiz from "./Quiz";
+import Quiz from './Quiz/Quiz'; 
 import SCLearn from "./SCLearn";
 import SpinWheel from "./SpinWheel";
 import Crossword from "./screens/Crossword/Crossword";
