@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "LearnIrula",
-    "slug": "learnirulaapp",
+    "slug": "learnirula",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,9 +12,7 @@
       "backgroundColor": "#284387",
       "duration": 5000
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -24,16 +22,16 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#284387"
       },
-      "package": "com.kevinjinu.LearnIrula"
+      "package": "com.anshumanv36.LearnIrula"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "b89c1e35-b390-47e0-931e-919bcb9200a0"
+        "projectId": "dd756101-d855-4a4b-9260-771a275d8786"
       }
     },
-    "owner": "hemanth_gopisetty_2002"
+    "owner": "directorate_of_student_affairs"
   }
 }
