@@ -476,7 +476,6 @@ export default function Home() {
                   </Text>
                 </View>
               </TouchableOpacity>
-
             </ScrollView>
           </View>
         </Modal>
@@ -545,7 +544,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 5,
     width: "48%",
-    
+
     backgroundColor: "#FFF",
   },
   modalContainer: {

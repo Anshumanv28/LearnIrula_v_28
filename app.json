@@ -4,7 +4,7 @@
     "slug": "learnirula",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icons/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -19,19 +19,20 @@
     "android": {
       "versionCode": 7,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
+        "foregroundImage": "./assets/icons/icon.png",
         "backgroundColor": "#284387"
       },
       "package": "com.anshumanv36.LearnIrula"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icons/favicon.png"
     },
     "extra": {
       "eas": {
         "projectId": "dd756101-d855-4a4b-9260-771a275d8786"
       }
     },
-    "owner": "directorate_of_student_affairs"
+    "owner": "directorate_of_student_affairs",
+    "sdkVersion": "52.0.0"
   }
 }

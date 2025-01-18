@@ -159,7 +159,7 @@ export default function AboutScreen() {
         <ScrollView horizontal style={styles.developerListContainer}>
           <View style={styles.developerItemContainer}>
             <Image
-              source={require("../assets/Kevin_pic.jpg")}
+              source={require("../assets/images/Kevin_pic.jpg")}
               style={styles.developerItemPhoto}
             />
             <Text style={styles.developerItemName}>Kevin Jinu</Text>
@@ -185,7 +185,7 @@ export default function AboutScreen() {
           </View>
           <View style={styles.developerItemContainer}>
             <Image
-              source={require("../assets/evina.jpg")}
+              source={require("../assets/images/evina.jpg")}
               style={styles.developerItemPhoto}
             />
             <Text style={styles.developerItemName}>Evina Novi T </Text>
@@ -213,7 +213,7 @@ export default function AboutScreen() {
           </View>
           <View style={styles.developerItemContainer}>
             <Image
-              source={require("../assets/ariz.jpg")}
+              source={require("../assets/images/ariz.jpg")}
               style={styles.developerItemPhoto}
             />
             <Text style={styles.developerItemName}>Ariz Siddiqui</Text>
@@ -241,7 +241,7 @@ export default function AboutScreen() {
           </View>
           <View style={styles.developerItemContainer}>
             <Image
-              source={require("../assets/arul_sir.jpg")}
+              source={require("../assets/images/arul_sir.jpg")}
               style={styles.developerItemPhoto}
             />
             <Text style={styles.developerItemName}>Dr. S. Arul Dayanand</Text>
@@ -273,7 +273,7 @@ export default function AboutScreen() {
           </View>
           <View style={styles.developerItemContainer}>
             <Image
-              source={require("../assets/Uma_maam.jpg")}
+              source={require("../assets/images/Uma_maam.jpg")}
               style={styles.developerItemPhoto}
             />
             <Text style={styles.developerItemName}>Dr. Uma Devi M</Text>

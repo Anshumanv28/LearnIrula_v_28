@@ -49,7 +49,10 @@ const SpinWheel = () => {
     const selectedItem = data[id2];
 
     if (!selectedItem || !selectedItem.audioPath) {
-      console.error("Invalid audioPath:", selectedItem && selectedItem.audioPath);
+      console.error(
+        "Invalid audioPath:",
+        selectedItem && selectedItem.audioPath
+      );
       return;
     }
 
@@ -112,7 +115,8 @@ const SpinWheel = () => {
         <View style={styles.container2}>
           <View style={styles.imageContent}>
             {data.slice(0, numSections).map((item, index) => {
-              const angleInRadians = ((360 / numSections * index) / 180) * Math.PI;
+              const angleInRadians =
+                (((360 / numSections) * index) / 180) * Math.PI;
               const positionX = 145 * Math.cos(angleInRadians);
               const positionY = 145 * Math.sin(angleInRadians);
               return (
@@ -122,7 +126,9 @@ const SpinWheel = () => {
                     position: "absolute",
                     left: positionX - 37.5,
                     top: positionY - 37.5,
-                    transform: [{ rotate: `${index * (360 / numSections)}deg` }],
+                    transform: [
+                      { rotate: `${index * (360 / numSections)}deg` },
+                    ],
                   }}
                 >
                   <Image
@@ -146,8 +152,12 @@ const SpinWheel = () => {
     }
     return (
       <View style={styles.infoBox}>
-        <Text style={styles.infoText}>{"English : " + selectedItem.enWord}</Text>
-        <Text style={styles.infoText}>{"Irula : " + selectedItem.irulaWord}</Text>
+        <Text style={styles.infoText}>
+          {"English : " + selectedItem.enWord}
+        </Text>
+        <Text style={styles.infoText}>
+          {"Irula : " + selectedItem.irulaWord}
+        </Text>
       </View>
     );
   };
@@ -170,19 +180,16 @@ const SpinWheel = () => {
         ]}
       >
         <Image
-          source={require("../Material/SpinWheel3.png")}
+          source={require("./../assets/Material/SpinWheel3.png")}
           style={styles.wheel}
         />
         <ImageWheel />
       </Animated.View>
-      <Pressable
-        onPress={spinWheel}
-        style={styles.spinButton}
-      >
+      <Pressable onPress={spinWheel} style={styles.spinButton}>
         <Text style={styles.spinButtonText}>SPIN</Text>
       </Pressable>
       <Image
-        source={require("../Material/Ratchet1.png")}
+        source={require("./../assets/Material/Ratchet1.png")}
         style={styles.ratchet}
       />
       <PictureInfoBox />
