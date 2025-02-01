@@ -5,12 +5,15 @@
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#284387",
       "duration": 5000
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {

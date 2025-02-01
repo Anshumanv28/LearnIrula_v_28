@@ -57,6 +57,34 @@ function ActivityScreen({ navigation }) {
             titleStyle={styles.buttonText}
           />
         </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button
+            title="Jumble Word"
+            onPress={() => navigation.navigate("Jumbleword")}
+            buttonStyle={{ ...styles.button, backgroundColor: "#FF5733" }} // Red-Orange
+            icon={<Icon name="spellcheck" type="material" color="#ffffff" />}
+            titleStyle={styles.buttonText}
+          />
+        </View>
+        {/* <View style={styles.buttonWrapper}>
+          <Button
+            title="API Featch Words"
+            onPress={() => navigation.navigate("MLScreen")}
+            buttonStyle={{ ...styles.button, backgroundColor: "#FF9999" }} // Red-Orange
+            icon={<Icon name="spellcheck" type="material" color="#ffffff" />}
+            titleStyle={styles.buttonText}
+          />
+        </View>
+        <View style={styles.buttonWrapper}>
+          <Button
+            title="Test"
+            onPress={() => navigation.navigate("Test")}
+            buttonStyle={{ ...styles.button, backgroundColor: "#FF9999" }} // Red-Orange
+            icon={<Icon name="spellcheck" type="material" color="#ffffff" />}
+            titleStyle={styles.buttonText}
+          />
+        </View> */}
       </View>
     </ScrollView>
   );

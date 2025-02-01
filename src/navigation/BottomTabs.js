@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Home from "./../screens/HomeScreen";
 import Glossary from "../Glossary";
 // import AboutScreen from "../About";
-import AboutScreen from "./../screens/AboutScreen";
+import AboutScreen from "../screens/AboutScreen";
 import ActivityStackNavigator from "./ActivityStackNavigator"; // Import the stack navigator
 
 const Tab = createBottomTabNavigator();
