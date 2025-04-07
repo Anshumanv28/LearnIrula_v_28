@@ -1,7 +1,4 @@
-import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useRef, useCallback } from "react";
-
 import {
   StyleSheet,
   FlatList,
@@ -15,23 +12,22 @@ import {
   RefreshControl,
   Keyboard,
   Dimensions,
+  ScrollView,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
-import { ScrollView } from "react-native-gesture-handler";
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Audio } from "expo-av";
 
-export default function Home() {
+export default function HomeScreen() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [numItemsToRender, setNumItemsToRender] = useState(35);
-
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-
   const [searchText, setSearchText] = useState("");
   const searchInput = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -41,33 +37,23 @@ export default function Home() {
   }, []);
 
   const fetchData = useCallback(() => {
-    // Check internet connection
     NetInfo.fetch().then((state) => {
       if (state.isConnected) {
-        // Fetch data from API
-        const startTime1 = Date.now();
-        const startTime = performance.now();
         axios
-          .get("https://learnirula.azurewebsites.net/api/") // Replace with your API endpoint
+          .get("https://learnirula.azurewebsites.net/api/")
           .then((response) => {
-            // Cache data using AsyncStorage
             const data = response.data;
             AsyncStorage.setItem("data", JSON.stringify(data));
             const shuffledData = data.sort(() => Math.random() - 0.5);
             setData(shuffledData);
             setFilteredData(data);
             setRefreshing(false);
-            const endTime1 = Date.now();
-            console.log(`API took ${endTime1 - startTime1} ms to render`);
-            const endTime = performance.now();
-            console.log(`API took ${endTime - startTime} ms to render`);
           })
           .catch((error) => {
             console.error(error);
             setRefreshing(false);
           });
       } else {
-        // Get cached data from AsyncStorage
         AsyncStorage.getItem("data")
           .then((cachedData) => {
             if (cachedData !== null) {
@@ -87,26 +73,12 @@ export default function Home() {
   }, []);
 
   const handleSearch = (text) => {
-    console.log("handleSearch function started");
-    if (typeof text !== "string") {
-      console.log("Invalid text type");
-      return;
-    }
-    const startTime = performance.now();
     const filtered = data.filter((item) => {
       return (
-        (item.enWord &&
-          item.enWord.toLowerCase().startsWith(text.toLowerCase())) ||
-        (item.taWord &&
-          item.taWord.toLowerCase().startsWith(text.toLowerCase()))
+        (item.enWord && item.enWord.toLowerCase().startsWith(text.toLowerCase())) ||
+        (item.taWord && item.taWord.toLowerCase().startsWith(text.toLowerCase()))
       );
     });
-    const endTime = performance.now();
-    console.log(
-      `handleSearch function took ${
-        endTime - startTime
-      } milliseconds to execute`
-    );
     setFilteredData(filtered);
     setSearchText(text);
     setIsFocused(true);
@@ -193,6 +165,123 @@ export default function Home() {
             <Text style={styles.noDataText}>Please wait...</Text>
           </View>
         )}
+        <Modal
+          visible={modalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setModalVisible(false)}
+          backdropOpacity={0.3}
+          propagateSwipe={true}
+        >
+          <View style={{ flex: 1, backgroundColor: "#000000aa" }}>
+            <View style={{ flex: 1, backgroundColor: "transparent" }} />
+            <View style={styles.modalCloseButton}>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <Ionicons name="close-circle-outline" size={70} color="white" />
+              </TouchableOpacity>
+            </View>
+            <ScrollView style={styles.modalContainer}>
+              <View style={styles.titleContainer}>
+                <View style={styles.wordtileContainer}>
+                  <Text style={styles.wordTileText}>
+                    {selectedItem ? selectedItem.taWord : ""}
+                  </Text>
+                </View>
+                <View style={styles.wordtileContainer}>
+                  <Text style={styles.wordTileText}>
+                    {selectedItem ? selectedItem.enWord : ""}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.modalContent}>
+                <View style={styles.modalColumn}>
+                  <View style={styles.definitionContainer}>
+                    <ScrollView>
+                      <Text style={styles.definitionText}>
+                        {selectedItem ? selectedItem.grammaticalInfo : ""}
+                      </Text>
+                    </ScrollView>
+                  </View>
+                  <View style={styles.definitionContainer}>
+                    <ScrollView>
+                      <Text style={styles.definitionText}>
+                        {selectedItem ? selectedItem.taMeaning : ""}
+                      </Text>
+                    </ScrollView>
+                  </View>
+                  <View style={styles.definitionContainer}>
+                    <ScrollView>
+                      <Text style={styles.definitionText}>
+                        {selectedItem ? selectedItem.enMeaning : ""}
+                      </Text>
+                    </ScrollView>
+                  </View>
+                  <View style={styles.definitionContainer}>
+                    <ScrollView>
+                      <Text style={styles.definitionText}>
+                        {selectedItem ? selectedItem.irulaWord : ""}
+                      </Text>
+                    </ScrollView>
+                  </View>
+                </View>
+                <View style={styles.modalColumn}>
+                  <View style={styles.definitionContainer}>
+                    <ScrollView>
+                      <Text style={styles.definitionText}>
+                        {selectedItem ? selectedItem.category : ""}
+                      </Text>
+                    </ScrollView>
+                  </View>
+                  <View style={styles.imageContainer}>
+                    <Image
+                      style={styles.modalImage}
+                      source={{
+                        uri: selectedItem ? selectedItem.picturePath : "",
+                      }}
+                    />
+                  </View>
+                  <View style={styles.definitionContainer}>
+                    <ScrollView>
+                      <Text style={styles.definitionText}>
+                        {selectedItem ? selectedItem.lexicalUnit : ""}
+                      </Text>
+                    </ScrollView>
+                  </View>
+                </View>
+              </View>
+              <TouchableOpacity
+                style={styles.audioButton}
+                onPress={async () => {
+                  if (!selectedItem || !selectedItem.audioPath) {
+                    console.log("Audio path is missing or invalid.");
+                    return;
+                  }
+
+                  try {
+                    const { sound } = await Audio.Sound.createAsync(
+                      { uri: selectedItem.audioPath },
+                      { shouldPlay: true }
+                    );
+
+                    sound.setOnPlaybackStatusUpdate(async (status) => {
+                      if (status.didJustFinish) {
+                        await sound.unloadAsync();
+                        await sound.releaseAsync();
+                      }
+                    });
+                  } catch (error) {
+                    console.log("Error playing audio:", error.message);
+                  }
+                }}
+              >
+                <View style={styles.audioButtonContent}>
+                  <Ionicons name="volume-high-sharp" size={24} color="white" />
+                  <Text style={styles.audioButtonText}>Hear this word</Text>
+                </View>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );
@@ -207,50 +296,70 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: 10,
-    marginVertical: 10,
+    marginVertical: 15,
     marginHorizontal: 20,
-    paddingHorizontal: 10,
-    height: 42,
+    paddingHorizontal: 15,
+    height: 50,
+    borderRadius: 25,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   searchInput: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 16,
+    color: "#284387",
   },
   itemContainer: {
     flexDirection: "row",
-    padding: 16,
+    padding: 15,
     alignItems: "center",
-    margin: 16,
+    margin: 12,
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
   },
   itemImage: {
-    width: 95,
-    height: 78,
-    borderRadius: 8,
+    width: 90,
+    height: 75,
+    borderRadius: 10,
   },
   itemTextContainer: {
     flex: 1,
     justifyContent: "center",
-    marginLeft: 10,
+    marginLeft: 12,
   },
   itemTitle: {
-    fontSize: 15,
+    fontSize: 16,
     color: "#284387",
-    fontWeight: "bold",
+    fontWeight: "600",
+    marginBottom: 4,
   },
   itemSubtitle: {
-    fontSize: 12,
-    color: "green",
+    fontSize: 14,
+    color: "#2E7D32",
+    marginBottom: 2,
   },
   itemLexicalUnit: {
-    fontSize: 10,
-    color: "red",
+    fontSize: 12,
+    color: "#D32F2F",
+    marginBottom: 2,
   },
   itemMeaning: {
-    fontSize: 10,
-    color: "green",
+    fontSize: 12,
+    color: "#2E7D32",
   },
   noDataContainer: {
     flex: 1,
@@ -259,7 +368,123 @@ const styles = StyleSheet.create({
   },
   noDataText: {
     color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  modalCloseButton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 15,
+  },
+  modalContainer: {
+    height: Dimensions.get("window").height * 0.65,
+    backgroundColor: "#284387",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    paddingHorizontal: 20,
+  },
+  titleContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 30,
+  },
+  wordtileContainer: {
+    padding: 8,
+    width: "48%",
+    backgroundColor: "white",
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  wordTileText: {
+    color: "#2E7D32",
+    fontSize: 18,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  modalContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+    height: Dimensions.get("window").height * 0.5,
+  },
+  modalColumn: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    width: "48%",
+  },
+  definitionContainer: {
+    padding: 10,
+    width: "100%",
+    maxHeight: Dimensions.get("window").height * 0.15,
+    backgroundColor: "white",
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  definitionText: {
+    color: "#284387",
+    fontSize: 14,
+    fontWeight: "500",
+    textAlign: "center",
+  },
+  imageContainer: {
+    width: 130,
+    height: 240,
+    borderRadius: 10,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  modalImage: {
+    width: 130,
+    height: 240,
+    borderRadius: 10,
+  },
+  audioButton: {
+    marginTop: 20,
+    width: "100%",
+    backgroundColor: "#4B639D",
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 4,
+  },
+  audioButtonContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  audioButtonText: {
+    fontSize: 18,
+    color: "white",
+    marginLeft: 8,
+    fontWeight: "600",
   },
 });
