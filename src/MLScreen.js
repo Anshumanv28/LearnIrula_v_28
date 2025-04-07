@@ -27,7 +27,7 @@ export default function MLScreen() {
         shouldDuckAndroid: true,
       });
     } catch (error) {
-      console.error("Error setting up audio:", error);
+      console.log("Error setting up audio:", error.message);
     }
   };
 
@@ -36,13 +36,22 @@ export default function MLScreen() {
       if (sound) {
         await sound.unloadAsync();
       }
+      
       const { sound: newSound } = await Audio.Sound.createAsync(
-        { uri: audioPath }
+        { uri: audioPath },
+        { shouldPlay: true }
       );
+      
       setSound(newSound);
-      await newSound.playAsync();
+
+      newSound.setOnPlaybackStatusUpdate(async (status) => {
+        if (status.didJustFinish) {
+          await newSound.unloadAsync();
+          await newSound.releaseAsync();
+        }
+      });
     } catch (error) {
-      console.error("Error playing sound:", error);
+      console.log("Error playing sound:", error.message);
       Alert.alert("Error", "Unable to play sound");
     }
   };

@@ -10,7 +10,6 @@ import Crossword from "../screens/Crossword/Crossword";
 import Jumbleword from "../Jumbleword";
 import MLScreen from "../MLScreen";
 import Test from "../Test";
-
 const Stack = createStackNavigator();
 
 const ActivityStackNavigator = () => {
@@ -29,6 +28,7 @@ const ActivityStackNavigator = () => {
       <Stack.Screen name="Jumbleword" component={Jumbleword} />
       <Stack.Screen name="MLScreen" component={MLScreen} />
       <Stack.Screen name="Test" component={Test}/>
+      {/* <Stack.Screen name="HangmanGame" component={HangmanGame} /> */}
     </Stack.Navigator>
   );
 };

@@ -252,14 +252,25 @@ export default function HomeScreen() {
               <TouchableOpacity
                 style={styles.audioButton}
                 onPress={async () => {
-                  const soundObject = new Audio.Sound();
+                  if (!selectedItem || !selectedItem.audioPath) {
+                    console.log("Audio path is missing or invalid.");
+                    return;
+                  }
+
                   try {
-                    await soundObject.loadAsync({
-                      uri: selectedItem ? selectedItem.audioPath : "",
+                    const { sound } = await Audio.Sound.createAsync(
+                      { uri: selectedItem.audioPath },
+                      { shouldPlay: true }
+                    );
+
+                    sound.setOnPlaybackStatusUpdate(async (status) => {
+                      if (status.didJustFinish) {
+                        await sound.unloadAsync();
+                        await sound.releaseAsync();
+                      }
                     });
-                    await soundObject.playAsync();
                   } catch (error) {
-                    console.error("Error playing sound:", error);
+                    console.log("Error playing audio:", error.message);
                   }
                 }}
               >
@@ -280,157 +291,200 @@ const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
     backgroundColor: "#284387",
-    
   },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "white",
-    borderRadius: 10,
-    marginVertical: 10,
+    marginVertical: 15,
     marginHorizontal: 20,
-    paddingHorizontal: 10,
-    height: 42,
-    borderRadius: 20,
+    paddingHorizontal: 15,
+    height: 50,
+    borderRadius: 25,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   searchInput: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 16,
+    color: "#284387",
   },
   itemContainer: {
     flexDirection: "row",
-    padding: 16,
+    padding: 15,
     alignItems: "center",
-    margin: 16,
+    margin: 12,
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
   },
   itemImage: {
-    width: 95,
-    height: 78,
-    borderRadius: 8,
+    width: 90,
+    height: 75,
+    borderRadius: 10,
   },
   itemTextContainer: {
     flex: 1,
     justifyContent: "center",
-    marginLeft: 10,
-    borderRadius: 20,
+    marginLeft: 12,
   },
   itemTitle: {
-    fontSize: 15,
+    fontSize: 16,
     color: "#284387",
-    fontWeight: "bold",
+    fontWeight: "600",
+    marginBottom: 4,
   },
   itemSubtitle: {
-    fontSize: 12,
-    color: "green",
+    fontSize: 14,
+    color: "#2E7D32",
+    marginBottom: 2,
   },
   itemLexicalUnit: {
-    fontSize: 10,
-    color: "red",
+    fontSize: 12,
+    color: "#D32F2F",
+    marginBottom: 2,
   },
   itemMeaning: {
-    fontSize: 10,
-    color: "green",
+    fontSize: 12,
+    color: "#2E7D32",
   },
   noDataContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 20,
   },
   noDataText: {
     color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "600",
   },
   modalCloseButton: {
     flexDirection: "row",
     justifyContent: "center",
-    marginBottom: 20,
-    borderRadius: 20,
+    marginBottom: 15,
   },
   modalContainer: {
     height: Dimensions.get("window").height * 0.65,
     backgroundColor: "#284387",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    paddingHorizontal: 25,
-    borderRadius: 20,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    paddingHorizontal: 20,
   },
   titleContainer: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 35,
-    borderRadius: 20,
+    marginTop: 30,
   },
   wordtileContainer: {
-    padding: 5,
+    padding: 8,
     width: "48%",
-    backgroundColor: "#FFF",
-    borderRadius: 20,
+    backgroundColor: "white",
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
   },
   wordTileText: {
-    color: "green",
-    fontSize: 16,
-    fontWeight: "bold",
+    color: "#2E7D32",
+    fontSize: 18,
+    fontWeight: "600",
     textAlign: "center",
   },
   modalContent: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 23,
+    marginTop: 20,
     height: Dimensions.get("window").height * 0.5,
-    borderRadius: 20,
   },
   modalColumn: {
     flexDirection: "column",
     justifyContent: "space-between",
     width: "48%",
-    borderRadius: 20,
   },
   definitionContainer: {
-    padding: 5,
+    padding: 10,
     width: "100%",
     maxHeight: Dimensions.get("window").height * 0.15,
-    backgroundColor: "#FFF",
-    borderRadius: 20,
+    backgroundColor: "white",
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
   },
   definitionText: {
     color: "#284387",
     fontSize: 14,
-    fontWeight: "bold",
+    fontWeight: "500",
     textAlign: "center",
   },
   imageContainer: {
-    width: 128,
-    height: 238,
-    borderRadius: 8,
+    width: 130,
+    height: 240,
+    borderRadius: 10,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
   },
   modalImage: {
-    width: 128,
-    height: 238,
-    borderRadius: 8,
+    width: 130,
+    height: 240,
+    borderRadius: 10,
   },
   audioButton: {
-    flex: 1,
     marginTop: 20,
     width: "100%",
     backgroundColor: "#4B639D",
-    borderRadius: 10,
+    borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 10,
-    borderRadius: 20,
+    paddingVertical: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 4,
   },
   audioButtonContent: {
     flexDirection: "row",
     alignItems: "center",
   },
   audioButtonText: {
-    fontSize: 24,
+    fontSize: 18,
     color: "white",
-    marginLeft: 10,
+    marginLeft: 8,
+    fontWeight: "600",
   },
 });

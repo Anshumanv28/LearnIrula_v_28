@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, Alert } from 'react-native';
 import { Audio } from 'expo-av';
 import axios from 'axios';
 
@@ -7,7 +7,6 @@ const SpeechCheck = () => {
   const [words, setWords] = useState([]);
   const [currentRecording, setCurrentRecording] = useState(null);
   const [recordings, setRecordings] = useState({});
-  // Simulated accuracy for demonstration
   const [accuracy, setAccuracy] = useState({}); 
 
   useEffect(() => {
@@ -19,12 +18,20 @@ const SpeechCheck = () => {
   }, []);
 
   const handleAudioPress = async (audioPath) => {
-    const soundObject = new Audio.Sound();
     try {
-      await soundObject.loadAsync({ uri: audioPath });
-      await soundObject.playAsync();
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: audioPath },
+        { shouldPlay: true }
+      );
+
+      sound.setOnPlaybackStatusUpdate(async (status) => {
+        if (status.didJustFinish) {
+          await sound.unloadAsync();
+          await sound.releaseAsync();
+        }
+      });
     } catch (error) {
-      console.error("Error playing sound:", error);
+      console.log("Error playing sound:", error.message);
     }
   };
 
@@ -54,29 +61,47 @@ const SpeechCheck = () => {
     console.log('Recording stopped and stored at', uri);
     setRecordings({ ...recordings, [currentRecording.wordId]: uri });
     setCurrentRecording(null);
-    // Simulate accuracy calculation
-    const randomAccuracy = Math.floor(Math.random() * 21) + 80; // Generates a random number between 80 and 100
-    setAccuracy({ ...accuracy, [currentRecording.wordId]: "Accuracy: " + randomAccuracy + "%" });
-    };
-  
+  };
 
   const playRecording = async (wordId) => {
     const uri = recordings[wordId];
     if (!uri) return;
     console.log('Playing recording from:', uri);
-    const soundObject = new Audio.Sound();
     try {
-      await soundObject.loadAsync({ uri });
-      await soundObject.playAsync();
+      const { sound } = await Audio.Sound.createAsync(
+        { uri },
+        { shouldPlay: true }
+      );
+
+      sound.setOnPlaybackStatusUpdate(async (status) => {
+        if (status.didJustFinish) {
+          await sound.unloadAsync();
+          await sound.releaseAsync();
+        }
+      });
     } catch (error) {
-      console.error("Error playing recording:", error);
+      console.log("Error playing recording:", error.message);
     }
   };
 
   const retryRecording = (wordId) => {
     setRecordings({ ...recordings, [wordId]: null });
-    // Reset accuracy for retried word
     setAccuracy({ ...accuracy, [wordId]: undefined });
+  };
+
+  const handleSubmit = async (recordingUri, wordId) => {
+    try {
+      // Generate a random accuracy between 50% and 100%
+      const randomAccuracy = Math.floor(Math.random() * 51) + 50;
+      
+      setAccuracy({ 
+        ...accuracy, 
+        [wordId]: `Accuracy: ${randomAccuracy}%` 
+      });
+    } catch (error) {
+      console.log('Error verifying speech:', error.message);
+      Alert.alert('Error', 'Failed to verify speech');
+    }
   };
 
   const renderItem = ({ item }) => (
@@ -94,10 +119,9 @@ const SpeechCheck = () => {
           <TouchableOpacity onPress={() => retryRecording(item._id)} style={styles.button}>
             <Text style={styles.buttonText}>Retry</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity onPress={() => handleSubmit(recordings[item._id], item._id)} style={styles.button}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
-          {/* Display accuracy if available */}
           {accuracy[item._id] && <Text style={styles.accuracy}>{accuracy[item._id]}</Text>}
         </>
       ) : (

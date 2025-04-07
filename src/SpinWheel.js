@@ -49,19 +49,24 @@ const SpinWheel = () => {
     const selectedItem = data[id2];
 
     if (!selectedItem || !selectedItem.audioPath) {
-      console.error(
-        "Invalid audioPath:",
-        selectedItem && selectedItem.audioPath
-      );
+      console.log("Invalid audioPath:", selectedItem && selectedItem.audioPath);
       return;
     }
 
-    const soundObject = new Audio.Sound();
     try {
-      await soundObject.loadAsync({ uri: selectedItem.audioPath });
-      await soundObject.playAsync();
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: selectedItem.audioPath },
+        { shouldPlay: true }
+      );
+
+      sound.setOnPlaybackStatusUpdate(async (status) => {
+        if (status.didJustFinish) {
+          await sound.unloadAsync();
+          await sound.releaseAsync();
+        }
+      });
     } catch (error) {
-      console.error("Error playing sound:", error);
+      console.log("Error playing sound:", error.message);
     }
   }, [data, spinValue]);
 
@@ -153,10 +158,10 @@ const SpinWheel = () => {
     return (
       <View style={styles.infoBox}>
         <Text style={styles.infoText}>
-          {"English : " + selectedItem.enWord}
+          {"English: " + selectedItem.enWord}
         </Text>
         <Text style={styles.infoText}>
-          {"Irula : " + selectedItem.irulaWord}
+          {"Irula: " + selectedItem.irulaWord}
         </Text>
       </View>
     );
@@ -216,22 +221,49 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 376,
     height: 376,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
   },
   wheel: {
     alignItems: "center",
     position: "absolute",
     width: 376,
     height: 376,
+    borderRadius: 188,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 6,
   },
   spinButton: {
     width: 120,
     height: 120,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "blue",
+    backgroundColor: "#FFD700",
     borderRadius: 60,
     padding: 10,
     top: -248,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 6,
+    borderWidth: 4,
+    borderColor: "#FFFFFF",
   },
   ratchet: {
     position: "relative",
@@ -241,26 +273,52 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     resizeMode: "contain",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
   },
   spinButtonText: {
-    fontSize: 25,
+    fontSize: 28,
     fontFamily: "System",
-    fontStyle: "italic",
-    color: "yellow",
+    fontWeight: "700",
+    color: "#284387",
+    textShadowColor: "rgba(0, 0, 0, 0.2)",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   imageContent: {
     position: "relative",
   },
   infoBox: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    padding: 10,
-    borderRadius: 8,
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
+    padding: 15,
+    borderRadius: 12,
     position: "absolute",
     bottom: 50,
+    width: "80%",
+    maxWidth: 300,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+    borderWidth: 2,
+    borderColor: "#FFD700",
   },
   infoText: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#284387",
+    marginVertical: 4,
+    textAlign: "center",
   },
 });
 
