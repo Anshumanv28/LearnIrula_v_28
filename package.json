@@ -26,6 +26,7 @@
     "@tensorflow/tfjs": "^4.22.0",
     "@tensorflow/tfjs-react-native": "^1.0.0",
     "axios": "^1.8.4",
+    "eas-cli": "^16.4.1",
     "expo": "~52.0.0",
     "expo-av": "~15.0.2",
     "expo-linear-gradient": "~14.0.2",
