@@ -10,8 +10,8 @@ import {
   Animated,
   SafeAreaView,
 } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function AboutScreen() {
   const [expanded, setExpanded] = useState(null);
@@ -21,29 +21,41 @@ export default function AboutScreen() {
   };
 
   const renderListItem = (title, description, index, image) => (
-    <TouchableOpacity 
+    <TouchableOpacity
       onPress={() => handleListItemPress(index)}
       style={styles.listItemContainer}
     >
       <LinearGradient
-        colors={expanded === index ? ['#4A90E2', '#357ABD'] : ['#fff', '#f5f5f5']}
+        colors={
+          expanded === index ? ["#4A90E2", "#357ABD"] : ["#fff", "#f5f5f5"]
+        }
         style={styles.gradient}
       >
         <View style={styles.listItemTitleContainer}>
           {image && <Image source={image} style={styles.developerImage} />}
-          <Text style={[styles.listItemTitle, expanded === index && styles.expandedTitle]}>
+          <Text
+            style={[
+              styles.listItemTitle,
+              expanded === index && styles.expandedTitle,
+            ]}
+          >
             {title}
           </Text>
-          <Ionicons 
-            name={expanded === index ? "chevron-up" : "chevron-down"} 
-            size={24} 
-            color={expanded === index ? "#fff" : "#666"} 
+          <Ionicons
+            name={expanded === index ? "chevron-up" : "chevron-down"}
+            size={24}
+            color={expanded === index ? "#fff" : "#666"}
             style={styles.chevron}
           />
         </View>
         {expanded === index && (
           <Animated.View style={styles.descriptionContainer}>
-            <Text style={[styles.listItemDescription, expanded === index && styles.expandedDescription]}>
+            <Text
+              style={[
+                styles.listItemDescription,
+                expanded === index && styles.expandedDescription,
+              ]}
+            >
               {description}
             </Text>
           </Animated.View>
@@ -54,14 +66,13 @@ export default function AboutScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <LinearGradient
-        colors={['#284387', '#1a2f5a']}
-        style={styles.background}
-      >
+      <LinearGradient colors={["#284387", "#1a2f5a"]} style={styles.background}>
         <ScrollView style={styles.container}>
           <View style={styles.header}>
             <Text style={styles.headerTitle}>About Learn Irula</Text>
-            <Text style={styles.headerSubtitle}>Discover the story behind our app</Text>
+            <Text style={styles.headerSubtitle}>
+              Discover the story behind our app
+            </Text>
           </View>
 
           {renderListItem(
@@ -76,27 +87,53 @@ export default function AboutScreen() {
             1
           )}
 
-          {renderListItem(
-            "Developers",
-            "Meet the team behind this app!",
-            2
-          )}
+          {renderListItem("Developers", "Meet the team behind this app!", 2)}
 
           {expanded === 2 && (
             <View style={styles.developerListContainer}>
               <View style={styles.developerItemContainer}>
-                <Text style={styles.developerItemName}>Abhinav Gosain</Text>
-                <Text style={styles.developerItemTitle}>Lead Developer</Text>
+                <Text style={styles.developerItemName}>Anshuman Mishra</Text>
+                <Text style={styles.developerItemTitle}>Developer</Text>
                 <View style={styles.socialLinks}>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={styles.socialButton}
-                    onPress={() => Linking.openURL("https://github.com/abhinavgosain")}
+                    onPress={() =>
+                      Linking.openURL("https://github.com/Anshumanv28")
+                    }
                   >
                     <Ionicons name="logo-github" size={24} color="#fff" />
                   </TouchableOpacity>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={styles.socialButton}
-                    onPress={() => Linking.openURL("https://www.linkedin.com/in/abhinavgosain/")}
+                    onPress={() =>
+                      Linking.openURL(
+                        "https://www.linkedin.com/in/anshuman-mishra-726781364/"
+                      )
+                    }
+                  >
+                    <Ionicons name="logo-linkedin" size={24} color="#fff" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.developerItemContainer}>
+                <Text style={styles.developerItemName}>Abhinav Gosain</Text>
+                <Text style={styles.developerItemTitle}>Developer</Text>
+                <View style={styles.socialLinks}>
+                  <TouchableOpacity
+                    style={styles.socialButton}
+                    onPress={() =>
+                      Linking.openURL("https://github.com/abhinavgosain")
+                    }
+                  >
+                    <Ionicons name="logo-github" size={24} color="#fff" />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.socialButton}
+                    onPress={() =>
+                      Linking.openURL(
+                        "https://www.linkedin.com/in/abhinavgosain/"
+                      )
+                    }
                   >
                     <Ionicons name="logo-linkedin" size={24} color="#fff" />
                   </TouchableOpacity>
@@ -128,26 +165,26 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 30,
     paddingTop: 20,
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     marginBottom: 10,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: '#fff',
+    color: "#fff",
     opacity: 0.8,
   },
   listItemContainer: {
     marginBottom: 15,
     borderRadius: 15,
-    overflow: 'hidden',
-    shadowColor: '#000',
+    overflow: "hidden",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -157,17 +194,17 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   listItemTitleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   listItemTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     flex: 1,
   },
   expandedTitle: {
-    color: '#fff',
+    color: "#fff",
   },
   chevron: {
     marginLeft: 10,
@@ -178,17 +215,17 @@ const styles = StyleSheet.create({
   listItemDescription: {
     fontSize: 16,
     lineHeight: 24,
-    color: '#666',
+    color: "#666",
   },
   expandedDescription: {
-    color: '#fff',
+    color: "#fff",
   },
   developerListContainer: {
     marginTop: 15,
   },
   developerItemContainer: {
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     padding: 20,
     borderRadius: 15,
   },
@@ -198,32 +235,32 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     marginBottom: 15,
     borderWidth: 3,
-    borderColor: '#fff',
+    borderColor: "#fff",
   },
   developerItemName: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     marginBottom: 5,
   },
   developerItemTitle: {
     fontSize: 16,
-    color: '#fff',
+    color: "#fff",
     opacity: 0.8,
     marginBottom: 15,
-    textAlign: 'center',
+    textAlign: "center",
   },
   socialLinks: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
   },
   socialButton: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    justifyContent: "center",
+    alignItems: "center",
     marginHorizontal: 10,
   },
   developerImage: {
