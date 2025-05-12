@@ -14,7 +14,9 @@ function ActivityScreen({ navigation }) {
               title="Check Speech"
               onPress={() => navigation.navigate("SpeechCheck")}
               buttonStyle={[styles.button, { backgroundColor: "#EF5350" }]}
-              icon={<Icon name="mic" type="material" color="#ffffff" size={24} />}
+              icon={
+                <Icon name="mic" type="material" color="#ffffff" size={24} />
+              }
               titleStyle={styles.buttonText}
             />
           </View>
@@ -24,7 +26,9 @@ function ActivityScreen({ navigation }) {
               title="Take a Quiz"
               onPress={() => navigation.navigate("Quiz")}
               buttonStyle={[styles.button, { backgroundColor: "#5C6BC0" }]}
-              icon={<Icon name="school" type="material" color="#ffffff" size={24} />}
+              icon={
+                <Icon name="school" type="material" color="#ffffff" size={24} />
+              }
               titleStyle={styles.buttonText}
             />
           </View>
@@ -34,12 +38,19 @@ function ActivityScreen({ navigation }) {
               title="Spin Wheel"
               onPress={() => navigation.navigate("SpinWheel")}
               buttonStyle={[styles.button, { backgroundColor: "#FFA726" }]}
-              icon={<Icon name="refresh" type="material" color="#ffffff" size={24} />}
+              icon={
+                <Icon
+                  name="refresh"
+                  type="material"
+                  color="#ffffff"
+                  size={24}
+                />
+              }
               titleStyle={styles.buttonText}
             />
           </View>
 
-          <View style={styles.buttonWrapper}>
+          {/* <View style={styles.buttonWrapper}>
             <Button
               title="Scenario Based Exercise"
               onPress={() => navigation.navigate("SCLearn")}
@@ -47,14 +58,21 @@ function ActivityScreen({ navigation }) {
               icon={<Icon name="casino" type="material" color="#ffffff" size={24} />}
               titleStyle={styles.buttonText}
             />
-          </View>
+          </View> */}
 
           <View style={styles.buttonWrapper}>
             <Button
               title="Crossword"
               onPress={() => navigation.navigate("Crossword")}
               buttonStyle={[styles.button, { backgroundColor: "#800080" }]}
-              icon={<Icon name="grid-on" type="material" color="#ffffff" size={24} />}
+              icon={
+                <Icon
+                  name="grid-on"
+                  type="material"
+                  color="#ffffff"
+                  size={24}
+                />
+              }
               titleStyle={styles.buttonText}
             />
           </View>
@@ -64,12 +82,19 @@ function ActivityScreen({ navigation }) {
               title="Jumble Word"
               onPress={() => navigation.navigate("Jumbleword")}
               buttonStyle={[styles.button, { backgroundColor: "#FF5733" }]}
-              icon={<Icon name="spellcheck" type="material" color="#ffffff" size={24} />}
+              icon={
+                <Icon
+                  name="spellcheck"
+                  type="material"
+                  color="#ffffff"
+                  size={24}
+                />
+              }
               titleStyle={styles.buttonText}
             />
           </View>
 
-          <View style={styles.buttonWrapper}>
+          {/* <View style={styles.buttonWrapper}>
             <Button
               title="API Fetch Words"
               onPress={() => navigation.navigate("MLScreen")}
@@ -77,14 +102,16 @@ function ActivityScreen({ navigation }) {
               icon={<Icon name="cloud-download" type="material" color="#ffffff" size={24} />}
               titleStyle={styles.buttonText}
             />
-          </View>
+          </View> */}
 
           <View style={styles.buttonWrapper}>
             <Button
               title="Word Tiles"
               onPress={() => navigation.navigate("Test")}
               buttonStyle={[styles.button, { backgroundColor: "#4DB6AC" }]}
-              icon={<Icon name="apps" type="material" color="#ffffff" size={24} />}
+              icon={
+                <Icon name="apps" type="material" color="#ffffff" size={24} />
+              }
               titleStyle={styles.buttonText}
             />
           </View>

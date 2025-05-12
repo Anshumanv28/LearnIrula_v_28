@@ -16,7 +16,7 @@ import {
 import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Glossary(props) {
   const [words, setWords] = useState([]);
@@ -42,7 +42,9 @@ export default function Glossary(props) {
 
   const loadWords = async () => {
     try {
-      const response = await axios.get("https://learnirula.azurewebsites.net/api/");
+      const response = await axios.get(
+        "https://learnirula.azurewebsites.net/api/"
+      );
       const sortedWords = response.data.sort((a, b) =>
         a.enWord.localeCompare(b.enWord, undefined, { ignorePunctuation: true })
       );
@@ -84,12 +86,11 @@ export default function Glossary(props) {
       });
 
       // Play the sound
-      await newSound.playAsync();
-      
+      // await newSound.playAsync();
+
       // Update state
       setSound(newSound);
       setCurrentlyPlaying(itemId);
-
     } catch (error) {
       console.error("Error playing sound:", error);
       setCurrentlyPlaying(null);
@@ -106,10 +107,10 @@ export default function Glossary(props) {
         onPress={() => playAudio(item.audioPath, item._id)}
         activeOpacity={0.7}
       >
-        <Animated.View 
+        <Animated.View
           style={[
             styles.wordContainer,
-            { transform: [{ scale: isPlaying ? scaleAnim : 1 }] }
+            { transform: [{ scale: isPlaying ? scaleAnim : 1 }] },
           ]}
         >
           <View style={styles.wordHeader}>
@@ -118,16 +119,16 @@ export default function Glossary(props) {
               <Text style={styles.wordEn}>{item.enWord}</Text>
             </View>
             <View style={styles.audioButton}>
-              <Ionicons 
-                name={isPlaying ? "pause" : "volume-high"} 
-                size={24} 
-                color={isPlaying ? "#4CAF50" : "#284387"} 
+              <Ionicons
+                name={isPlaying ? "pause" : "volume-high"}
+                size={24}
+                color={isPlaying ? "#4CAF50" : "#284387"}
               />
             </View>
           </View>
-          
+
           <Text style={styles.wordTn}>{item.irulaWord}</Text>
-          
+
           <View style={styles.categoryContainer}>
             <View style={styles.categoryTag}>
               <Text style={styles.category}>{item.lexicalUnit}</Text>
@@ -136,7 +137,7 @@ export default function Glossary(props) {
               <Text style={styles.category}>{item.category}</Text>
             </View>
           </View>
-          
+
           <Text style={styles.wordMeaning}>{item.enMeaning}</Text>
         </Animated.View>
       </TouchableOpacity>
@@ -145,7 +146,8 @@ export default function Glossary(props) {
 
   const handleScroll = (event) => {
     const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
-    const scrollFraction = contentOffset.y / (contentSize.height - layoutMeasurement.height);
+    const scrollFraction =
+      contentOffset.y / (contentSize.height - layoutMeasurement.height);
     const index = Math.floor(scrollFraction * filteredData.length);
     const item = filteredData[index];
     if (item) {
@@ -191,7 +193,8 @@ export default function Glossary(props) {
 
     const filtered = words.filter((item) => {
       return (
-        (item.enWord && item.enWord.toLowerCase().includes(text.toLowerCase())) ||
+        (item.enWord &&
+          item.enWord.toLowerCase().includes(text.toLowerCase())) ||
         (item.taWord && item.taWord.toLowerCase().includes(text.toLowerCase()))
       );
     });
@@ -210,19 +213,21 @@ export default function Glossary(props) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <LinearGradient
-        colors={['#284387', '#1a2f5a']}
-        style={styles.background}
-      >
+      <LinearGradient colors={["#284387", "#1a2f5a"]} style={styles.background}>
         <StatusBar style="light" />
-        
+
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Irula Glossary</Text>
           <Text style={styles.headerSubtitle}>Learn and listen to words</Text>
         </View>
 
         <View style={styles.searchContainer}>
-          <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
+          <Ionicons
+            name="search"
+            size={20}
+            color="#666"
+            style={styles.searchIcon}
+          />
           <TextInput
             style={styles.searchInput}
             placeholder="Search words..."
@@ -231,7 +236,10 @@ export default function Glossary(props) {
             placeholderTextColor="#666"
           />
           {isFocused && (
-            <TouchableOpacity onPress={handleClearSearch} style={styles.clearButton}>
+            <TouchableOpacity
+              onPress={handleClearSearch}
+              style={styles.clearButton}
+            >
               <Ionicons name="close-circle" size={20} color="#666" />
             </TouchableOpacity>
           )}
@@ -266,10 +274,12 @@ export default function Glossary(props) {
               onPress={() => handleLetterPress(letter)}
               style={styles.scrollbarButton}
             >
-              <Text style={[
-                styles.scrollbarText,
-                selectedLetter === letter && styles.scrollbarSelectedText
-              ]}>
+              <Text
+                style={[
+                  styles.scrollbarText,
+                  selectedLetter === letter && styles.scrollbarSelectedText,
+                ]}
+              >
                 {letter.toUpperCase()}
               </Text>
             </TouchableOpacity>
@@ -289,29 +299,29 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     marginBottom: 5,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: '#fff',
+    color: "#fff",
     opacity: 0.8,
   },
   searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
     marginHorizontal: 20,
     marginBottom: 20,
     borderRadius: 25,
     paddingHorizontal: 15,
     height: 50,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -323,56 +333,56 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   clearButton: {
     padding: 5,
   },
   wordContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     marginHorizontal: 20,
     marginVertical: 10,
     padding: 20,
     borderRadius: 15,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
   },
   wordHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 10,
   },
   wordTitleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   wordNumber: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     marginRight: 5,
   },
   wordEn: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#284387',
+    fontWeight: "bold",
+    color: "#284387",
     flex: 1,
   },
   wordTn: {
     fontSize: 16,
-    color: '#F05454',
+    color: "#F05454",
     marginBottom: 10,
   },
   categoryContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 10,
   },
   categoryTag: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 15,
@@ -380,29 +390,29 @@ const styles = StyleSheet.create({
   },
   category: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   wordMeaning: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
     lineHeight: 24,
   },
   audioButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center",
+    alignItems: "center",
   },
   scrollbarContainer: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     top: 0,
     bottom: 0,
     width: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 20,
   },
   scrollbarButton: {
@@ -410,30 +420,30 @@ const styles = StyleSheet.create({
   },
   scrollbarText: {
     fontSize: 12,
-    fontWeight: 'bold',
-    color: 'rgba(255, 255, 255, 0.6)',
+    fontWeight: "bold",
+    color: "rgba(255, 255, 255, 0.6)",
   },
   scrollbarSelectedText: {
     fontSize: 14,
-    color: '#fff',
+    color: "#fff",
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   loadingText: {
-    color: '#fff',
+    color: "#fff",
     marginTop: 10,
     fontSize: 16,
   },
   emptyContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   emptyText: {
-    color: '#fff',
+    color: "#fff",
     marginTop: 10,
     fontSize: 16,
   },
