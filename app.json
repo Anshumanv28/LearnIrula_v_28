@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "LearnIrula",
-    "slug": "learnirula",
+    "slug": "learn-irula",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
@@ -15,15 +15,14 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "no"
+      "bundleIdentifier": "com.anshumanv36.LearnIrula",
+      "buildNumber": "1.0.1"
     },
     "android": {
-      "versionCode": 7,
+      "versionCode": 10,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/icon.png",
         "backgroundColor": "#284387"
@@ -35,10 +34,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "dd756101-d855-4a4b-9260-771a275d8786"
+        "projectId": "82d9b9c8-2c74-456b-9bd0-4f69b9814cd9"
       }
     },
-    "owner": "directorate_of_student_affairs",
-    "sdkVersion": "52.0.0"
+    "owner": "anshumanv36",
+    "newArchEnabled": true
   }
 }
